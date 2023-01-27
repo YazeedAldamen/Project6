@@ -28,7 +28,7 @@ namespace Project.Account
             }
 
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+            var signInManager = Context.GetOwinContext().Get<ApplicatoinsignInManager>();
 
             var result = manager.ChangePhoneNumber(User.Identity.GetUserId(), PhoneNumber.Value, Code.Text);
 

@@ -39,7 +39,7 @@ namespace Project.Account
             if (!IsPostBack)
             {
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+                var signInManager = Context.GetOwinContext().Get<ApplicatoinsignInManager>();
                 var loginInfo = Context.GetOwinContext().Authentication.GetExternalLoginInfo();
                 if (loginInfo == null)
                 {
@@ -92,7 +92,7 @@ namespace Project.Account
                 return;
             }
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signInManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+            var signInManager = Context.GetOwinContext().GetUserManager<ApplicatoinsignInManager>();
             var user = new ApplicationUser() { UserName = email.Text, Email = email.Text };
             IdentityResult result = manager.Create(user);
             if (result.Succeeded)

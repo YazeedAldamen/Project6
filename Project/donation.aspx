@@ -1,19 +1,44 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="donation.aspx.cs" Inherits="Project.WebForm1" %>
 
+<%@ Register Src="~/WebUserControl1.ascx" TagPrefix="uc1" TagName="WebUserControl1" %>
+
+
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <style>
 
         .navbar{
             background-image:url("images/nav.png");
+            background-color:black;
             width:100%;
         }
+        #category table td{
+            width:35%
+        }
+        #headerDiv{
+                        background-image:url("images/bg3.png");
+                        color:white;
+        }
+ 
     </style>
     <script src="https://kit.fontawesome.com/72467fec0a.js" crossorigin="anonymous"></script>
 
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    
+            <div class="container-fluid" id="headerDiv">
+
+    <div class="container" style="padding:10px">
+     <h2> Make a Difference with Your Donation</h2>
+        <p style="font-size:15px">
+            Your generosity can help support our mission and make a meaningful impact in the lives of those in need. We rely on donations from people like you to continue our work and make a lasting difference.
+     
+       
+           your support is deeply appreciated and essential to our success. Please use the form on this page to make your donation 
+           </p>
+           </div>
+           </div>
     <div class="container">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
@@ -21,14 +46,8 @@
    
     <div style="background-color: white; height: auto; padding:10px" >
 
-        <h2> Donation Form</h2>
-        <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make
-        </p>
-        <p>
-            a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus 
-        </p>
-        <p>PageMaker including versions of Lorem IpsuLorem Ipsum is simply dummy text of th.</p>
+       
+     
         <hr />
         <p style="font-size: larger; font-weight: bold">Select Type Of Donation</p>
 
@@ -38,7 +57,7 @@
         
         
         <div style="display: flex; flex-wrap: nowrap; justify-content: space-evenly; align-items: center; width:100%">
-            <asp:RadioButtonList ID="RadioButtonList2" runat="server" CellPadding="10" CellSpacing="50" RepeatColumns="3" Width="50%" CssClass="form-check" OnSelectedIndexChanged="RadioButtonList2_SelectedIndexChanged" AutoPostBack="True">
+            <asp:RadioButtonList ID="RadioButtonList2" runat="server" CellPadding="10" CellSpacing="50" RepeatColumns="2" Width="50%" CssClass="form-check" OnSelectedIndexChanged="RadioButtonList2_SelectedIndexChanged" AutoPostBack="True">
                 <asp:ListItem>Money</asp:ListItem>
                 <asp:ListItem>Cooking Tools</asp:ListItem>
             </asp:RadioButtonList>
@@ -47,9 +66,9 @@
         <div id="Tools" runat="server" >
             <p style="font-size: larger; font-weight: bold">Select Type Of Tools</p>
             
-            <div style="display: flex; justify-content: space-evenly; flex-wrap:wrap;  width: 100%; align-items: center">
-                <asp:RadioButtonList ID="RadioButtonList1" runat="server" CellPadding="50" CellSpacing="50" RepeatColumns="3" Width="50%" CssClass="form-check" >
-                    <asp:ListItem class="form-check-input">Electronics</asp:ListItem>
+            <div style="display: flex; justify-content: center; flex-wrap:wrap;  width: 100%; align-items: center" id="category">
+                <asp:RadioButtonList ID="RadioButtonList1" runat="server" CellPadding="10" CellSpacing="50" RepeatColumns="3" Width="50%" CssClass="form-check" >
+                    <asp:ListItem >Electronics</asp:ListItem>
                     <asp:ListItem>Utinsilis</asp:ListItem>
                     <asp:ListItem>Other</asp:ListItem>
                 </asp:RadioButtonList>
@@ -71,7 +90,7 @@
                 <br />--%>
                 <div style="display: flex; flex-wrap: wrap; width: 100%">
                     
-                    <asp:Label ID="imageUpload" runat="server" Text="Upload Image" class="form-label" Style="width: 30%"></asp:Label>
+                    <asp:Label ID="imageUpload" runat="server" Text="Upload Image" class="form-label" Style="width: 25%"></asp:Label>
                     
                     
                     <asp:FileUpload ID="FileUpload1" runat="server" class="form-control" AllowMultiple="True" style="width:50%"  Accept=".png,.jpg,.jpeg,.jfif"/>
@@ -85,13 +104,13 @@
             <br />
               <p style="font-size: larger; font-weight: bold">Quality</p>
 
-                <div  style="display: flex; justify-content: space-evenly; align-items: center; flex-wrap: wrap; width: 100%;">
-                    <asp:RadioButtonList ID="qualityRadioButtonList" runat="server" CellPadding="50" CellSpacing="50" RepeatColumns="5" Width="50%" CssClass="form-check">
-                        <asp:ListItem Value="1">Poor</asp:ListItem>
-                        <asp:ListItem Value="2">Decent</asp:ListItem>
-                        <asp:ListItem Value="3">Good</asp:ListItem>
-                        <asp:ListItem Value="4">Very Good</asp:ListItem>
-                        <asp:ListItem Value="5">Brand New</asp:ListItem>
+                <div  style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; width: 100%;">
+                    <asp:RadioButtonList ID="qualityRadioButtonList" runat="server" CellPadding="50" CellSpacing="12" RepeatColumns="5" Width="50%" CssClass="form-check">
+                        <asp:ListItem Value="Poor">Poor</asp:ListItem>
+                        <asp:ListItem Value="Decent">Decent</asp:ListItem>
+                        <asp:ListItem Value="Good">Good</asp:ListItem>
+                        <asp:ListItem Value="Very Good">Very Good</asp:ListItem>
+                        <asp:ListItem Value="Brand New">Brand New</asp:ListItem>
                     </asp:RadioButtonList>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ControlToValidate="qualityRadioButtonList" ForeColor="Red"></asp:RequiredFieldValidator>
                 </div>
@@ -190,22 +209,32 @@
                         <br />
 
                         <div style="display: flex; width: 100%">
-                            <asp:Label ID="lblOtherAmount" runat="server" Text="Other Amount $" class="form-label" Style="width: 30%"></asp:Label>
+                            <asp:Label ID="lblOtherAmount" runat="server" Text="Other Amount $" class="form-label" Style="width:25%"></asp:Label>
                             <asp:TextBox ID="txtOtherAmount" runat="server" TextMode="Number" Min="1" class="form-control" Style="width: 50%" Enabled="false" AutoPostBack="True" OnTextChanged="txtOtherAmount_TextChanged"></asp:TextBox>
 <%--                            <asp:Label ID="Label1" runat="server" Text="sthsth" Visible="false"></asp:Label>--%>
                         </div>
-                  
-                <p style="font-size: larger; font-weight: bold">Choose Your Prefered Organization</p>
-                <asp:DropDownList ID="organizationDropDownList" runat="server">
+                <hr />
+                                <p style="font-size: larger; font-weight: bold">Choose Your Prefered Organization:</p>
 
-                </asp:DropDownList>
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
 
+
+
+                    <asp:DropDownList ID="organizationDropDownList" runat="server" class="form-control" Style="width: 25%" >
+                    </asp:DropDownList>
+                </div>
+                </>
                 <br />
                 <br />
 
-                <asp:DropDownList ID="couponStoreDropDownList" runat="server">
 
-                </asp:DropDownList>
+                                <p style="font-size: larger; font-weight: bold">Choose Your Store</p>
+
+                <div style="display: flex;flex-direction:column;  justify-content: center; align-items: center">
+                    <asp:DropDownList ID="couponStoreDropDownList" runat="server" class="form-control" Style="width: 25%">
+                    </asp:DropDownList>
+                </div>
+
 
                 <hr />
                 <%--Information--%>
@@ -270,7 +299,7 @@
                                     <div style="display: flex; flex-wrap: wrap; width: 100%;"">
                     <asp:Label ID="lblCity2" runat="server" Text="City" class="form-label" Style="width: 30%"></asp:Label>
 
-                    <asp:DropDownList ID="cityDropDownList2" runat="server">
+                    <asp:DropDownList ID="cityDropDownList2" runat="server" class="form-control" style="width:25%">
                         <asp:ListItem Value="1">Irbid</asp:ListItem>
                         <asp:ListItem Value="2">Amman</asp:ListItem>
                         <asp:ListItem Value="3">Ajloun</asp:ListItem>
@@ -322,11 +351,15 @@
     </div>
      </ContentTemplate>
     </asp:UpdatePanel>
-
+        <hr />
             <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
                 <asp:Button ID="btnDonate" runat="server" Text="Donate" CssClass="btn" Style="background-color: #F56F1A; color: white" OnClick="btnDonate_Click" />
+          
             </div>
-
+        <br />
+               <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+         <uc1:WebUserControl1 runat="server" id="WebUserControl1" />
+        </div>
 
       </div>
     

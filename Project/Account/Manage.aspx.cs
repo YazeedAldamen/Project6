@@ -93,7 +93,7 @@ namespace Project.Account
         protected void RemovePhone_Click(object sender, EventArgs e)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+            var signInManager = Context.GetOwinContext().Get<ApplicatoinsignInManager>();
             var result = manager.SetPhoneNumber(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
             {

@@ -12,7 +12,7 @@ namespace Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            back.Style["background-image"] = "url(images/cover.jpg)";
+            //back.Style["background-image"] = "url(images/cover.jpg)";
             //background - image: url(images / cover.jpg);
 
         }
@@ -20,6 +20,16 @@ namespace Project
         protected void Button1_Click(object sender, EventArgs e)
         {
             Response.Redirect("donation.aspx");
+        }
+
+        protected void Button1_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("donation.aspx");
+        }
+
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("voulnteer.aspx");
         }
     }
 }

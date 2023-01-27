@@ -5,7 +5,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         body{
-            background-image:url("images/login.png");
+            background-image:url("images/log.jfif");
             background-size:cover;
         }
         .navbar{
@@ -21,11 +21,12 @@
             border-radius:5PX;
             display:flex;
             flex-direction:column;
-            justify-content:center;
+            /*justify-content:center;*/
         }
         .form-group{
             margin-left:30px;
-        }.btn{
+        }
+        .btn{
              background-color: #F56F1A;
              color:white;
              width:150px;
@@ -35,6 +36,9 @@
       
      
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="admindash/css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </asp:Content>
 
 <asp:Content runat="server" ID="BodyContent"  ContentPlaceHolderID="MainContent"> 
@@ -43,7 +47,7 @@
 
     <div class="container" style="display:flex; justify-content:center; align-items:center;">
         <div class="login">
-            <h1 style="color: #F56F1A;">Log In</h1>
+            <h1 style="color: #F56F1A; margin-top:7rem; margin-bottom:6rem">Log In</h1>
             <div>
                 <asp:PlaceHolder runat="server" ID="ErrorMessage" Visible="false">
                     <p class="text-danger">
@@ -87,7 +91,8 @@
                     
                <br />
                 <p>
-                    <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled">Register as a new user</asp:HyperLink>
+                    <span>Don't Have an Account?</span>
+                    <asp:HyperLink runat="server" ID="RegisterHyperLink" ViewStateMode="Disabled" >Register Here</asp:HyperLink>
                 </p>
                 
            

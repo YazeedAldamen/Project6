@@ -13,13 +13,13 @@ namespace Project.Account
 {
     public partial class TwoFactorAuthenticationSignIn : System.Web.UI.Page
     {
-        private ApplicationSignInManager signinManager;
+        private ApplicatoinsignInManager signinManager;
         private ApplicationUserManager manager;
 
         public TwoFactorAuthenticationSignIn()
         {
             manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+            signinManager = Context.GetOwinContext().GetUserManager<ApplicatoinsignInManager>();
         }
 
         protected void Page_Load(object sender, EventArgs e)

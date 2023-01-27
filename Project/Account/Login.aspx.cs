@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -13,6 +15,15 @@ namespace Project.Account
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (Request.Cookies["Email"] != null )
+                {
+                    Email.Text = Request.Cookies["Email"].Value;
+                    //Password.Attributes["Value"] = Request.Cookies["Password"].Value;
+                }
+
+            }
 
             RegisterHyperLink.NavigateUrl = "Register";
             // Enable this once you have account confirmation enabled for password reset functionality
@@ -27,11 +38,24 @@ namespace Project.Account
 
         protected void LogIn(object sender, EventArgs e)
         {
+            if (RememberMe.Checked)
+            {
+                Response.Cookies["Email"].Value = Email.Text;
+                //Response.Cookies["Password"].Value = Password.Text;
+                Response.Cookies["Email"].Expires = DateTime.Now.AddDays(1);
+                //Response.Cookies["Password"].Expires = DateTime.Now.AddSeconds(20);
+
+            }
+            else
+            {
+                Response.Cookies["Email"].Expires = DateTime.Now.AddMinutes(-1);
+                //Response.Cookies["Password"].Expires = DateTime.Now.AddMinutes(-1);
+            }
             if (IsValid)
             {
                 // Validate the user password
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var signinManager = Context.GetOwinContext().GetUserManager<ApplicationSignInManager>();
+                var signinManager = Context.GetOwinContext().GetUserManager<ApplicatoinsignInManager>();
 
                 // This doen't count login failures towards account lockout
                 // To enable password failures to trigger lockout, change to shouldLockout: true
@@ -40,7 +64,18 @@ namespace Project.Account
                 switch (result)
                 {
                     case SignInStatus.Success:
+                        var connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                        SqlConnection connection = new SqlConnection(connectionString);
+                        connection.Open();
+                        SqlCommand sql = new SqlCommand($"Select Id from AspNetUsers where UserName='{Email.Text}'", connection);
+                        string user_id = sql.ExecuteScalar().ToString();
+                        Session["user_id"] = user_id;
+
                         IdentityHelper.RedirectToReturnUrl(Request.QueryString["ReturnUrl"], Response);
+                        if (Context.User.IsInRole("Admin"))
+                        {
+                            Response.Redirect("Admin.aspx");
+                        }
                         break;
                     case SignInStatus.LockedOut:
                         Response.Redirect("/Account/Lockout");

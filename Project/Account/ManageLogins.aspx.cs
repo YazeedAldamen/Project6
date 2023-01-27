@@ -47,7 +47,7 @@ namespace Project.Account
         public void RemoveLogin(string loginProvider, string providerKey)
         {
             var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+            var signInManager = Context.GetOwinContext().Get<ApplicatoinsignInManager>();
             var result = manager.RemoveLogin(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             string msg = String.Empty;
             if (result.Succeeded)

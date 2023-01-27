@@ -54,7 +54,7 @@ namespace Project.Account
             if (IsValid)
             {
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
-                var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
+                var signInManager = Context.GetOwinContext().Get<ApplicatoinsignInManager>();
                 IdentityResult result = manager.ChangePassword(User.Identity.GetUserId(), CurrentPassword.Text, NewPassword.Text);
                 if (result.Succeeded)
                 {

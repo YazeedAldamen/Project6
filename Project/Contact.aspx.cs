@@ -23,10 +23,9 @@ namespace Project
             mail.To.Add("yazeedaldamen98@gmail.com");
             mail.From = new MailAddress($"{txtEmail.Text}");
             mail.Subject = $"{txtEmail.Text}";
-
             mail.Body = txtMessage.Text ;
             mail.IsBodyHtml = true;
-
+                                                    
             SmtpClient smtp = new SmtpClient();
             smtp.Port = 587; // 25 465
             smtp.EnableSsl = true;
@@ -45,9 +44,12 @@ namespace Project
             connection.Close();
 
             ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "successalert();", true);
+            
 
 
         }
+
+        
     }
 
 }

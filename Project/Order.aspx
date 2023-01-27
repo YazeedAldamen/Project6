@@ -103,15 +103,15 @@
                      <asp:TextBox ID="TextBox1" runat="server" Text='<%# Bind("image") %>'></asp:TextBox>
                  </EditItemTemplate>
                  <ItemTemplate>
-                     <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("image") %>' />
+                     <asp:Image ID="Image1" runat="server" ImageUrl='<%# Eval("image") %>' style="width:200px; height:150px"/>
                  </ItemTemplate>
             </asp:TemplateField>
 
-            <asp:TemplateField ShowHeader="False">
+           <%-- <asp:TemplateField ShowHeader="False">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="false" CommandName="" Text="Button" OnClick="LinkButton1_Click" Enabled="false"></asp:LinkButton>
                 </ItemTemplate>
-            </asp:TemplateField>
+            </asp:TemplateField>--%>
 
 <%--            <asp:buttonfield  buttontype="button" Text="Accept" commandname="accept"  />--%>
 

@@ -72,22 +72,35 @@ body{
     font-size: 1.6em;
     color: #fff;
     padding-bottom: 0.5em;
+    margin-left:15%;
 }
 
     .second h4::after {
         content: '';
         background: #F56F1A;
-        width: 20%;
+        width: 100%;
         height: 2px;
         position: absolute;
         bottom: 0;
-        left: 40%;
+        left:0;
     }
-
+    .logofooter{
+            width:100px;
+        }
+         .footerlogin{
+                 font-size: 18px;
+                color: white;
+                /*margin-left: 65px;*/
+                margin-top: 40px;
+                text-align:center;
+         }
+         .footerlogin a{
+             color:white;
+         }
 
 .second li {
     list-style: none;
-    padding-bottom: 30px;
+    padding-bottom: 15px;
 }
 
 .second a, .second2 a {
@@ -114,7 +127,7 @@ body{
     margin-bottom: 50px;
     color: rgb(206,206,206);
     font-family: 'Poppins', sans-serif;
-    text-align: right;
+    text-align: center;
 }
 
 
@@ -126,17 +139,19 @@ body{
         font-size: 1.6em;
         color: #fff;
         padding-bottom: 0.5em;
+            margin-left:15%;
+
     }
 
 
         .third h4::after {
             content: '';
             background:#F56F1A ;
-            width: 20%;
+            width: 100%;
             height: 2px;
             position: absolute;
             bottom: 0;
-            left: 80%;
+            left:0;
         }
 
 
@@ -221,7 +236,7 @@ body{
     </style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %>Tools4Hunger</title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 
@@ -235,10 +250,31 @@ body{
     <script type="text/javascript">
         function successalert() {
             swal({
-                title: 'Congratulations!',
+                title: 'Success!',
                 text: 'Your message has been succesfully sent',
-                type: 'success'
+                type: 'success',
+                icon: 'success',
+                button: 'Ok',
+                
             });
+            //.then((willDelete) => {
+            //    if (willDelete) {
+            //        window.location.href = '/Default.aspx';
+            //    }
+            //});
+           
+        }
+        function donation() {
+            swal({
+                title: 'Thank You!',
+                text: 'Your Donation Is Appreciated',
+                type: 'success',
+                icon: 'success',
+                button: 'Ok'
+            });
+          
+        
+
         }
     </script>
 </head>
@@ -274,21 +310,26 @@ body{
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-nav" runat="server" href="~/">
-                            <img src="images/pngegg.png" /><span style="font-size:xx-small;">Feeding Your Heart   </span> </a>
+                            <img src="images/pngegg.png" /></a>
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li><a class="hover" runat="server" href="Default.aspx">Home</a></li>
+                            <li><a class="hover" runat="server" href="Default.aspx" >Home</a></li>
+                           
                             <li><a class="hover" runat="server" href="About.aspx">About</a></li>
                             <li><a class="hover" runat="server" href="Contact.aspx">Contact</a></li>
                         </ul>
                         <asp:LoginView runat="server" ViewStateMode="Disabled">
                             <AnonymousTemplate>
+                                <ul class="nav navbar-nav navbar-left">
+                                     <li><a class="hover" runat="server" href="donation.aspx">Donate</a></li>
+                            <li><a class="hover" runat="server" href="voulnteer.aspx">Voulnteer</a></li>
+                                </ul>
                                 <ul class="nav navbar-nav navbar-right">
+                                
                                     <li><a class="hover" runat="server" href="~/Account/Register">Register</a></li>
                                     <li><a class="hover" runat="server" href="~/Account/Login">Log in</a></li>
-                                    <li>
-                                        <asp:Button ID="Button1" CssClass="DONATE" runat="server" Text="Donate Now" OnClick="Button1_Click"  /></li>
+                                  
 
 
                                 </ul>
@@ -296,8 +337,14 @@ body{
                             <LoggedInTemplate>
                                 <ul class="nav navbar-nav navbar-right">
                                 <% if(Context.User.IsInRole("Admin")){  %>
-                                    <li><a runat="server" href="WebForm3.aspx" title="Admin DashBoard" >Dashboard</a></li>
+                                    <li><a runat="server" href="Admin/Admin.aspx" title="Admin DashBoard" >Dashboard</a></li>
                                     <%} %>
+                                    <% if(Context.User.IsInRole("Organization")){  %>
+                                    <li><a runat="server" href="applicationPage.aspx" title="Application Page" >Donations</a></li>
+                                            <%} %>
+                                              <% if(Context.User.IsInRole("Organization")){  %>
+                                    <li><a runat="server" href="availableVolunteers.aspx" title="Application Page" >Volunteers</a></li>
+                                            <%} %>
                                     <li><a runat="server" href="profile.aspx" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName()  %> !</a></li>
                                     <li>
                                         <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
@@ -321,112 +368,50 @@ body{
         <div class="container">
             <div class="row">
                 <div class="col-md-4 col-xs-12">
-                    <div class="first">
-                        <h4>My Skills</h4>
-                        <p> Analytical Skills</p>
-                        <p> Problem-solving skills</p>
-                        <p> Critical-thinking skills</p>
-                        <p> Detail-oriented</p>
-                        <p> Multitasking</p>
-                        <p> Self-motivated</p>
+                    <div class="first" style="display:flex; flex-direction:column; align-items:center; ">
+                        <asp:Image ID="logofooter" CssClass="logofooter" runat="server" ImageUrl="\images\pngegg.png" />
+                        <div class="footerlogin">
+                        <p style="font-size:25px; font-weight:600">Tools4Hunger</p>
+                         <a class="hover" runat="server" href="~/Account/Register">Register</a><br />
+                          <a class="hover" runat="server" href="~/Account/Login">Log in</a>
+                            </div>
                     </div>
+                     
                 </div>
 
                 <div class="col-md-4 col-xs-12">
-                    <div class="second">
+                    <div class="second" style="display:flex; flex-direction:column; align-items:center; ">
                         <h4> Navigate</h4>
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Projects</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="Default.aspx">Home</a></li>
+                            <li><a href="donation.aspx">Donation</a></li>
+                            <li><a href="About.aspx">About</a></li>
+                            <li><a href="Contact.aspx">Contact</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="col-md-4 col-xs-12">
-                    <div class="third">
+                    <div class="third" style="display:flex; flex-direction:column; align-items:center; ">
                         <h4> Contact</h4>
                         <ul>
-                            <li>Andreea Mihaela Bunget </li>
-                            <li></li>
+                            <li>Tools4Hunger </li>
+                            
 
 
-                          <li><i class="far fa-envelope"></i> andreea@andreeabunget.co.uk</li>
-                            <li><i class="far fa-envelope"></i> email@yahoo.com</li>
+                          <li><i class="far fa-envelope"></i> Tools4Hunger@gmail.com</li>
+                            <li><i class="far fa-envelope"></i> Tools4Hunger@yahoo.com</li>
 
 
-                          <li><i class="fas fa-map-marker-alt"></i> London, UK </li>
+                          <li><i class="fas fa-map-marker-alt"></i> <a href="https://goo.gl/maps/8nDnqqg96E88dpzQA">Tools4Hunger </a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="line"></div>
-                    <div class="second2">
-                          <section class="mb-4">
-      <!-- Facebook -->
-      <a
-        class="btn btn-primary btn-floating m-1"
-        style="background-color: #3b5998;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-facebook-f"></i
-      ></a>
-
-      <!-- Twitter -->
-      <a
-        class="btn btn-primary btn-floating m-1"
-        style="background-color: #55acee;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-twitter"></i
-      ></a>
-
-      <!-- Google -->
-      <a
-        class="btn btn-primary btn-floating m-1"
-        style="background-color: #dd4b39;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-google"></i
-      ></a>
-
-      <!-- Instagram -->
-      <a
-        class="btn btn-primary btn-floating m-1"
-        style="background-color: #ac2bac;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-instagram"></i
-      ></a>
-
-      <!-- Linkedin -->
-      <a
-        class="btn btn-primary btn-floating m-1"
-        style="background-color: #0082ca;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-linkedin-in"></i
-      ></a>
-      <!-- Github -->
-      <a
-        class="btn btn-primary btn-floating m-1"
-        style="background-color: #333333;"
-        href="#!"
-        role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-    </section>
-   
-                    </div>
-
-                </div>
-            </div>
-                                        <p style="color:white; text-align:center;">&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            
+                                        <p style="color:white; text-align:center;">&copy; Tools4Hunger <%: DateTime.Now.Year %> </p>
 
             </div>
     </div>

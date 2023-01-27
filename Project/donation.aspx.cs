@@ -18,6 +18,7 @@ namespace Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Page.Title = "Donation";
             if (!IsPostBack)
             {
                 RadioButtonList2.SelectedIndex = 1;
@@ -52,6 +53,10 @@ namespace Project
                 SqlDataReader sdr2 = cmd2.ExecuteReader();
                 while (sdr2.Read())
                 {
+                //if(sdr2[1].ToString() == "2be3d247-78d3-4598-bfd1-ffe063176341")
+                //    {
+                //        continue;
+                //}
                     organization.Text = sdr2[0].ToString();
                     organization.Value = sdr2[1].ToString();
                     organizationDropDownList.Items.Add(organization);
@@ -136,6 +141,8 @@ namespace Project
                 txtZip.Text = string.Empty;
                 txtPhone2.Text = string.Empty;
                 txtEmail2.Text = string.Empty;
+                //ScriptManager.RegisterStartupScript(this, GetType(), "Popup", "donation();", true);
+                Session["donation"] = "1";
                 Response.Redirect("Default.aspx");
 
             }
@@ -159,13 +166,13 @@ namespace Project
                 SqlConnection con = new SqlConnection(connectionString);
                 con.Open();
                 string fullName = txtFirstName.Text + " " + txtLastName.Text;
-
+                string p = "\\Image\\";
                 SqlCommand com = new SqlCommand($"insert into Tool (donorName,category,quality,dateDonated,image,phone,email,address,city_id,comment) values(@donorName,@category,@quality,@dateDonated,@image,@phone,@email,@address,@city_id,@comment)", con);
                 com.Parameters.AddWithValue("@donorName", fullName);
                 com.Parameters.AddWithValue("@quality", qualityRadioButtonList.SelectedValue);
-                com.Parameters.AddWithValue("@dateDonated", DateTime.Now);
+                com.Parameters.AddWithValue("@dateDonated", DateTime.Now.Day);
                 com.Parameters.AddWithValue("@category", RadioButtonList1.SelectedItem.Text);
-                com.Parameters.AddWithValue("@image", path + image1);
+                com.Parameters.AddWithValue("@image", p + image1);
                 com.Parameters.AddWithValue("@phone", txtPhone.Text);
                 com.Parameters.AddWithValue("@email", txtEmail.Text);
                 com.Parameters.AddWithValue("@address", txtAddress.Text);
@@ -187,9 +194,13 @@ namespace Project
                 txtComment.Text = string.Empty;
                 ////FileUpload1.FileContent.Dispose();
 
+                //ScriptManager.RegisterStartupScript(this, GetType(), "Success", "donation();", true);
+                Session["donation"] = "1";
                 Response.Redirect("Default.aspx");
 
             }
         }
+
+       
     }
 }
